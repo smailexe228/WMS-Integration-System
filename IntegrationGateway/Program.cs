@@ -1,22 +1,16 @@
-var builder = WebApplication.CreateBuilder(args);
-
 builder.Services.AddControllers();
 
-builder.Services.AddHttpClient<
-    InventoryClient>(client =>
+builder.Services.AddAutoMapper(typeof(
+    SupplyToStockProfile));
+
+builder.Services.AddScoped<
+    SupplyIntegrationService>();
+
+builder.Services
+.AddHttpClient<InventoryAdapter>(client =>
 {
     client.BaseAddress =
         new Uri("http://localhost:5003");
 });
 
-builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-
-var app = builder.Build();
-
-app.UseSwagger();
-app.UseSwaggerUI();
-
-app.MapControllers();
-
-app.Run();

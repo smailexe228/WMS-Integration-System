@@ -1,5 +1,6 @@
-using Microsoft.AspNetCore.Mvc;
+using IntegrationGateway.DTOs;
 using IntegrationGateway.Services;
+using Microsoft.AspNetCore.Mvc;
 
 namespace IntegrationGateway.Controllers;
 
@@ -7,20 +8,20 @@ namespace IntegrationGateway.Controllers;
 [Route("api/integration")]
 public class IntegrationController : ControllerBase
 {
-    private readonly InventoryClient _client;
+    private readonly SupplyIntegrationService _service;
 
     public IntegrationController(
-        InventoryClient client)
+        SupplyIntegrationService service)
     {
-        _client = client;
+        _service = service;
     }
 
-    [HttpPost("supplies")]
-    public async Task<IActionResult> Create(
-        object request)
+    [HttpPost("supply")]
+    public async Task<IActionResult> Supply(
+        SupplyDto dto)
     {
-        await _client.AddStockAsync(request);
+        await _service.ProcessSupplyAsync(dto);
 
-        return Ok();
+        return Ok("Stock updated");
     }
 }

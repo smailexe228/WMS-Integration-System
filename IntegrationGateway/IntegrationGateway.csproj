@@ -1,1 +1,8 @@
-"applicationUrl": "http://localhost:5000"
+dotnet add package AutoMapper
+dotnet add package AutoMapper.Extensions.Microsoft.DependencyInjection
+
+dotnet add package Serilog.AspNetCore
+dotnet add package Serilog.Sinks.Console
+
+dotnet add package Polly
+dotnet add package Polly.Extensions.Http
