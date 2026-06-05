@@ -1,0 +1,32 @@
+version: '3.8'
+
+services:
+
+  product-service:
+    build:
+      context: ./ProductService
+    ports:
+      - "5001:8080"
+
+  supply-service:
+    build:
+      context: ./SupplyService
+    ports:
+      - "5002:8080"
+
+  inventory-service:
+    build:
+      context: ./InventoryService
+    ports:
+      - "5003:8080"
+
+  integration-gateway:
+    build:
+      context: ./IntegrationGateway
+    ports:
+      - "5000:8080"
+
+    depends_on:
+      - inventory-service
+      - product-service
+      - supply-service
