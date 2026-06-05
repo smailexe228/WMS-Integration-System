@@ -1,16 +1,7 @@
 builder.Services.AddControllers();
 
-builder.Services.AddAutoMapper(typeof(
-    SupplyToStockProfile));
+var app = builder.Build();
 
-builder.Services.AddScoped<
-    SupplyIntegrationService>();
+app.MapControllers();
 
-builder.Services
-.AddHttpClient<InventoryAdapter>(client =>
-{
-    client.BaseAddress =
-        new Uri("http://localhost:5003");
-});
-
-builder.Services.AddSwaggerGen();
+app.Run();
